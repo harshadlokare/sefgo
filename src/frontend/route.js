@@ -1,16 +1,42 @@
 import React from "react";
 import "./route.css";
 const Route = (props) => {
+  const {onTakeSource} = props;
+  const {onTakeDestination} = props;
+
+  const {onButtonClick} = props;
+  //const[btnClick,setBtnClick] = useState(false);
+  const ButtonHandler =()=>{
+    onButtonClick(true);
+  }
+
+
+const sourceHandler = (e) =>{
+
+    onTakeSource(e.target.value);
+}
+
+const destinationHandler = (e) =>{
+
+  onTakeDestination(e.target.value);
+}
+
+
+  const handler = (e) =>{
+    e.preventDefault();
+  }
+
   return (
-    <form>
+    
       <div class="first-div">
-        <form>
+        <form onSubmit={handler}>
           <label for="sname">Source</label>  <br></br>
           <input
             type="text"
             id="sname"
             name="Source"
             placeholder="Enter Source.."
+            onChange={sourceHandler}
           />
           <br></br>
           <label for="dname">Destination</label>  <br></br>
@@ -19,15 +45,13 @@ const Route = (props) => {
             id="dname"
             name="Destination"
             placeholder="Enter Destination.."
+            onChange={destinationHandler}
+            
           />
           <br></br>
-          <input type="submit" value="Show Route!" />
-        </form>
-      </div>
-      {/*  <!-- <div>
-                          <a href="#" onclick='loadHtml("template","mapl.html")'>CLiker to show map</a>
-                      </div> --> */}
-    </form>
+          <button type="submit" onClick={ButtonHandler} >Show Route!</button>
+        </form >
+      </div>    
   );
 };
 
