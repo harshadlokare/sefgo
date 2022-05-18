@@ -167,7 +167,7 @@ function App(props) {
 
             {showSPMap && <MapContainer
             className="map"
-            center={[location2.coordinates[8][1], location2.coordinates[8][0]]}
+            center={[location2.coordinates[0][1], location2.coordinates[8][0]]}
             zoom={13}
             scrollWheelZoom={true}
           >
