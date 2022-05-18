@@ -21,3 +21,10 @@
 	border-radius: 0 10px 0 10px;
 	background: rgb(50, 191, 221);
 }
+
+.mapDiv{
+	border-width:2px;
+border-style:solid;
+border-color:#6099e9;
+
+}
