@@ -1,35 +1,36 @@
 import React from "react";
-import "./route.css";
+import "./Route.css";
 const Route = (props) => {
+  //passing data to parent component(App) using props
   const {onTakeSource} = props;
   const {onTakeDestination} = props;
-
   const {onButtonClick} = props;
-  //const[btnClick,setBtnClick] = useState(false);
+
+  //Show route button handler function
   const ButtonHandler =()=>{
     onButtonClick(true);
   }
 
-
+//funtion to pass source input via props
 const sourceHandler = (e) =>{
 
     onTakeSource(e.target.value);
 }
-
+//function to pass destination input via props
 const destinationHandler = (e) =>{
 
   onTakeDestination(e.target.value);
 }
 
-
-  const handler = (e) =>{
+//form handler function
+  const formHandler = (e) =>{
     e.preventDefault();
   }
 
   return (
     
       <div class="first-div">
-        <form onSubmit={handler}>
+        <form onSubmit={formHandler}>
           <label for="sname">Source</label>  <br></br>
           <input
             type="text"
@@ -46,7 +47,6 @@ const destinationHandler = (e) =>{
             name="Destination"
             placeholder="Enter Destination.."
             onChange={destinationHandler}
-            
           />
           <br></br>
           <button type="submit" onClick={ButtonHandler} >Show Route!</button>
