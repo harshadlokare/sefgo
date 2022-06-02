@@ -29,9 +29,9 @@ const destinationHandler = (e) =>{
 
   return (
     
-      <div class="first-div">
+      <div className="first-div">
         <form onSubmit={formHandler}>
-          <label for="sname">Source</label>  <br></br>
+          <label htmlFor="sname">Source</label>  <br></br>
           <input
             type="text"
             id="sname"
@@ -40,7 +40,7 @@ const destinationHandler = (e) =>{
             onChange={sourceHandler}
           />
           <br></br>
-          <label for="dname">Destination</label>  <br></br>
+          <label htmlFor="dname">Destination</label>  <br></br>
           <input
             type="text"
             id="dname"
