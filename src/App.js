@@ -8,19 +8,17 @@ import Route from "./frontend/Route";
 delete L.Icon.Default.prototype._getIconUrl;
 
 function App(props) {
-
-  const [userData, setUserData] = useState({});
-  const [info, setInfo] = useState({});
-
   const {BaseLayer} = LayersControl;
 
-//set user input in string format
+
   const[source,setSource]=useState();
   const[destination,setDestination]=useState();
-
-  //show map corresponding to inputs
-   const[showMap,setShowMap] = useState(false);
-    const[obj,setObj] = useState({});
+  const[showMap,setShowMap] = useState(false);
+  const[obj,setObj] = useState({});
+  const [userData, setUserData] = useState({});
+  const [info, setInfo] = useState({});
+  const [hotspotCount, setHotspotCount] = useState(0);
+  
   const sourceHandler=(e)=>{
     setSource(e);
   }
@@ -30,8 +28,6 @@ function App(props) {
   }
 
   const dataUrl = `https://dev.virtualearth.net/REST/V1/Routes/Driving?wp.0=${source}&wp.1=${destination}&routeAttributes=routePath&key=Apis-OFfeu34KEnthrPkfyCZB90o20UBdmoLWk-awdoVE6VHyJZtP5fnxuQtfsra`;
-
-  
 
   const buttonHandler = async () =>{
 
@@ -57,39 +53,30 @@ function App(props) {
           myObject[cnt++] = [userData[i+1][0],userData[i+1][1]];
           console.log([userData[i+1][0],userData[i+1][1]],angleInDegree);
       }
-      
     }
+    setHotspotCount(cnt);
+    console.log(cnt);
     setObj(myObject); 
     setShowMap(true);
-
   }
-//.......................................fetch URL
-  
-
-  /* const fetchBingMap = async () => {
-
     
 //.......................................find angle
-  };  */
  const findAngle = (A,B,C) =>{
   var AB = Math.sqrt(Math.pow(B[0]-A[0],2)+ Math.pow(B[1]-A[1],2));    
     var BC = Math.sqrt(Math.pow(B[0]-C[0],2)+ Math.pow(B[1]-C[1],2)); 
     var AC = Math.sqrt(Math.pow(C[0]-A[0],2)+ Math.pow(C[1]-A[1],2));
     return Math.acos((BC*BC+AB*AB-AC*AC)/(2*BC*AB));
 } 
-
-/* const GetTurnDirection= (A,B,C)=>
-{
-    let v1 = B - A ;
-    let v2 = C - B ;
-    var cross = v1.lat*v2.lon - v1.lon*v2.lat ;
-    if (cross > 0) { return Direction.Left ; } 
-    if (cross < 0) { return Direction.Right ; }
-    var dot =  v1.lat*v2.lat + v1.lon*v2.lon ;
-    if (dot > 0) { return Direction.Straight ; }
-    return Direction.UTurn ;
-} */
-
+const convertHMS=(value)=> {
+  const sec = parseInt(value, 10); // convert value to number if it's string
+  let hours   = Math.floor(sec / 3600); // get hours
+  let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
+  let seconds = sec - (hours * 3600) - (minutes * 60); //  get seconds
+  if (hours   < 10) {hours   = "0"+hours;}
+  if (minutes < 10) {minutes = "0"+minutes;}
+  if (seconds < 10) {seconds = "0"+seconds;}
+  return hours+' hrs: '+minutes+' min: '+seconds+' sec'; // Return is HH : MM : SS
+}
   return (
     <div className="App">
     <h2 className="headline">Drive safe by knowing these accident prone locations...</h2>
@@ -97,10 +84,12 @@ function App(props) {
 {showMap && <div>
   
     Travel Distance: {info.travelDistance} km
-    <br/>
+    <br/> 
     Traffic Congestion: {info.trafficCongestion}
     <br/>
-    Travel Duration: {parseInt(info.travelDuration/(60*60))} hrs
+    Travel Duration: {convertHMS(info.travelDuration)}
+    <br/>
+    Total Hotspots: {hotspotCount}
   
 </div>}
     <div className="mapDiv">

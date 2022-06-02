@@ -5,7 +5,7 @@ const Route = (props) => {
   const {onTakeSource} = props;
   const {onTakeDestination} = props;
   const {onButtonClick} = props;
-
+  
   //Show route button handler function
   const ButtonHandler =()=>{
     onButtonClick(true);
@@ -28,8 +28,8 @@ const destinationHandler = (e) =>{
   }
 
   return (
-    
       <div className="first-div">
+
         <form onSubmit={formHandler}>
           <label htmlFor="sname">Source</label>  <br></br>
           <input
@@ -49,9 +49,12 @@ const destinationHandler = (e) =>{
             onChange={destinationHandler}
           />
           <br></br>
-          <button type="submit" onClick={ButtonHandler} >Show Route!</button>
-        </form >
+          <button type="submit" onClick={ButtonHandler} >Show Map!</button>
+          
+        </form >     
+
       </div>    
+      
   );
 };
 
