@@ -8,6 +8,7 @@ import Route from "./frontend/Route";
 delete L.Icon.Default.prototype._getIconUrl;
 
 function App(props) {
+  
   const {BaseLayer} = LayersControl;
 
 
@@ -48,11 +49,16 @@ function App(props) {
       let angle = findAngle([userData[i][0],userData[i][1]],[userData[i+1][0],userData[i+1][1]],[userData[i+2][0],userData[i+2][1]]);
       let angleInDegree = (angle* 180) / Math.PI;
 
-      if(angleInDegree>70 && angleInDegree<130)
+      if(angleInDegree>20 && angleInDegree<150)
       {     
           myObject[cnt++] = [userData[i+1][0],userData[i+1][1]];
           console.log([userData[i+1][0],userData[i+1][1]],angleInDegree);
+
       }
+
+      angle=0;
+      angleInDegree=0;
+      
     }
     setHotspotCount(cnt);
     console.log(cnt);
