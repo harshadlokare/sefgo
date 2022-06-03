@@ -1,10 +1,11 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import L from "leaflet";
 import {MapContainer, TileLayer, Marker, LayersControl } from "react-leaflet";
 import leafRed from "./assets/leaf-red.png";
 import leafShadow from "./assets/leaf-shadow.png";
 import Route from "./frontend/Route";
+import Routing from "./frontend/Routing";
 delete L.Icon.Default.prototype._getIconUrl;
 
 function App(props) {
@@ -49,16 +50,14 @@ function App(props) {
       let angle = findAngle([userData[i][0],userData[i][1]],[userData[i+1][0],userData[i+1][1]],[userData[i+2][0],userData[i+2][1]]);
       let angleInDegree = (angle* 180) / Math.PI;
 
-      if(angleInDegree>20 && angleInDegree<150)
+      if(angleInDegree>20 && angleInDegree<160)
       {     
           myObject[cnt++] = [userData[i+1][0],userData[i+1][1]];
+          
           console.log([userData[i+1][0],userData[i+1][1]],angleInDegree);
-
       }
-
       angle=0;
       angleInDegree=0;
-      
     }
     setHotspotCount(cnt);
     console.log(cnt);
@@ -73,7 +72,7 @@ function App(props) {
     var AC = Math.sqrt(Math.pow(C[0]-A[0],2)+ Math.pow(C[1]-A[1],2));
     return Math.acos((BC*BC+AB*AB-AC*AC)/(2*BC*AB));
 } 
-const convertHMS=(value)=> {
+/* const convertHMS=(value)=> {
   const sec = parseInt(value, 10); // convert value to number if it's string
   let hours   = Math.floor(sec / 3600); // get hours
   let minutes = Math.floor((sec - (hours * 3600)) / 60); // get minutes
@@ -82,23 +81,26 @@ const convertHMS=(value)=> {
   if (minutes < 10) {minutes = "0"+minutes;}
   if (seconds < 10) {seconds = "0"+seconds;}
   return hours+' hrs: '+minutes+' min: '+seconds+' sec'; // Return is HH : MM : SS
-}
+} */
+
   return (
     <div className="App">
     <h2 className="headline">Drive safe by knowing these accident prone locations...</h2>
       <Route onButtonClick={buttonHandler} onTakeSource={sourceHandler} onTakeDestination={destinationHandler}></Route>
 {showMap && <div>
   
-    Travel Distance: {info.travelDistance} km
-    <br/> 
+   {/*  Travel Distance: {info.travelDistance} km
+    <br/>  */}
     Traffic Congestion: {info.trafficCongestion}
     <br/>
-    Travel Duration: {convertHMS(info.travelDuration)}
-    <br/>
+    {/* Travel Duration: {convertHMS(info.travelDuration)}
+    <br/> */}
     Total Hotspots: {hotspotCount}
   
 </div>}
     <div className="mapDiv">
+    
+      <br/>
        {showMap && <MapContainer
             className="map"
             center={[userData[0][0], userData[0][1]]}
@@ -111,6 +113,8 @@ const convertHMS=(value)=> {
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+           
+             <Routing onPassSource={[userData[0][0],userData[0][1]]} onPassDestination={[userData[userData.length-1][0],userData[userData.length-1][1]]}/>
             </BaseLayer>
 
             <BaseLayer name="NASA Gibs Blue Marble">
@@ -121,10 +125,18 @@ const convertHMS=(value)=> {
               />
             </BaseLayer>
 
+            <BaseLayer name="ArcGIS Light Grey Map">
+            <TileLayer
+             url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+             attribution="Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri"
+            />
+            </BaseLayer>
+
             {
               Object.values(obj).map((coordinate, index) => {
-
+              
                 return (
+                  
                   <Marker
                     key={index}
                     position={{
@@ -139,7 +151,8 @@ const convertHMS=(value)=> {
                       iconAnchor: [17, 94], // point of the icon which will correspond to marker's location
                       shadowAnchor: [4, 62], // the same for the shadow
                       popupAnchor: [-3, -86],
-                    })}
+                    })
+                  }
                   />
                 );
               })
