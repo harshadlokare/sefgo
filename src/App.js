@@ -6,6 +6,7 @@ import leafRed from "./assets/leaf-red.png";
 import leafShadow from "./assets/leaf-shadow.png";
 import Route from "./frontend/Route";
 import Routing from "./frontend/Routing";
+import logo from "./assets/sefgo-LOGO.png";
 delete L.Icon.Default.prototype._getIconUrl;
 
 function App(props) {
@@ -85,7 +86,12 @@ function App(props) {
 
   return (
     <div className="App">
-    <h2 className="headline">Drive safe by knowing these accident prone locations...</h2>
+
+    <div className="topDiv">
+      <img className="logo" src={logo}></img>
+      <h2 className="headline">    Go Safe With SefGo</h2>
+    </div>
+
       <Route onButtonClick={buttonHandler} onTakeSource={sourceHandler} onTakeDestination={destinationHandler}></Route>
 {showMap && <div>
   

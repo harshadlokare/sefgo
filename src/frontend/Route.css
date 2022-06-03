@@ -1,29 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+
 body {
     background-color: #f2f2f2;
+    font-family: 'Varela Round', sans-serif;
+
+  }
+  label{
+    font-weight: bold;
+    font-size: large;
+    color: rgb(38, 42, 71);
+
   }
   
-  
   input[type=text], select {
-    width: 40%;
+    font-family: 'Varela Round', sans-serif;
+    font-size: large;
+    width: 37.6%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid rgb(245, 69, 38);
+    background-color: #f2f2f2;
     
   }
   
   button{
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+    font-size: large;
     width: 40%;
-    background-color: #4CAF50;
-    color: white;
+    background-color:rgb(50, 191, 221);
+    color: rgb(38, 42, 71);
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    box-shadow: 0 9px #999;
+
   }
+  button:hover {background-color: rgb(36, 211, 250)}
+
+button:active {
+  background-color: rgb(67, 169, 192);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
   
   input[type=submit]:hover {
     background-color: #45a049;
@@ -34,5 +58,10 @@ body {
     background-color: #f2f2f2;
     padding: 20px;
   }
+
+  
+
+
+
 
   
