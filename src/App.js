@@ -21,8 +21,8 @@ function App(props) {
   const [userData, setUserData] = useState({});
   const [info, setInfo] = useState({});
   const [hotspotCount, setHotspotCount] = useState(0);
-  const [firstAngle,setFirstAngle] = useState(0);
-  const [secondAngle,setSecondAngle] = useState(0);
+  const [firstAngle,setFirstAngle] = useState(30);
+  const [secondAngle,setSecondAngle] = useState(160);
 
  /*  const [TwoFirstAngle,setTwoFirstAngle] = useState(0);
   const [TwoSecondAngle,setTwoSecondAngle] = useState(0);
