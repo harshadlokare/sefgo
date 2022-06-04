@@ -21,7 +21,21 @@ function App(props) {
   const [userData, setUserData] = useState({});
   const [info, setInfo] = useState({});
   const [hotspotCount, setHotspotCount] = useState(0);
-  
+  const [firstAngle,setFirstAngle] = useState(0);
+  const [secondAngle,setSecondAngle] = useState(0);
+
+ /*  const [TwoFirstAngle,setTwoFirstAngle] = useState(0);
+  const [TwoSecondAngle,setTwoSecondAngle] = useState(0);
+
+  const [ThreeFirstAngle,setThreeFirstAngle] = useState(0);
+  const [ThreeSecondAngle,setThreeSecondAngle] = useState(0);
+
+  const [FourFirstAngle,setFourFirstAngle] = useState(0);
+  const [FourSecondAngle,setFourSecondAngle] = useState(0);
+
+  const [defaultFirstAngle,setDefaultFirstAngle] = useState(30);
+  const [defaultSecondAngle,setDefaultSecondAngle] = useState(160); */
+
   const sourceHandler=(e)=>{
     setSource(e);
   }
@@ -47,11 +61,12 @@ function App(props) {
     const finalData = formatData.routePath.line.coordinates;
     setInfo(formatData);
     setUserData(finalData);
+    //angleOneHandler();
     for (let i = 1; i < userData.length-2; i++) {
       let angle = findAngle([userData[i][0],userData[i][1]],[userData[i+1][0],userData[i+1][1]],[userData[i+2][0],userData[i+2][1]]);
       let angleInDegree = (angle* 180) / Math.PI;
 
-      if(angleInDegree>20 && angleInDegree<160)
+      if(angleInDegree>firstAngle && angleInDegree<secondAngle)
       {     
           myObject[cnt++] = [userData[i+1][0],userData[i+1][1]];
           
@@ -84,6 +99,28 @@ function App(props) {
   return hours+' hrs: '+minutes+' min: '+seconds+' sec'; // Return is HH : MM : SS
 } */
 
+const angleOneHandler = () =>{
+  setFirstAngle(10);
+  setSecondAngle(30);
+}
+
+const angleTwoHandler = () =>{
+  setFirstAngle(30);
+  setSecondAngle(90);
+}
+const angleThreeHandler = () =>{
+  setFirstAngle(90);
+  setSecondAngle(130);
+}
+const angleFourHandler = () =>{
+  setFirstAngle(130);
+  setSecondAngle(170);
+}
+const angleDefaultHandler = () =>{
+  setFirstAngle(30);
+  setSecondAngle(160);
+}
+
   return (
     <div className="App">
 
@@ -92,7 +129,17 @@ function App(props) {
       <h2 className="headline">    Go Safe With SefGo</h2>
     </div>
 
+      
       <Route onButtonClick={buttonHandler} onTakeSource={sourceHandler} onTakeDestination={destinationHandler}></Route>
+     <h3>Select any one angle condition:</h3>
+      &nbsp; &nbsp;&nbsp; &nbsp; <input type="checkbox" onChange={angleOneHandler}></input> <label>10 to 30</label> &nbsp; &nbsp;
+<input type="checkbox" onChange={angleTwoHandler}></input> <label>30 to 90</label> &nbsp; &nbsp; &nbsp;
+<input type="checkbox" onChange={angleThreeHandler}></input> <label>90 to 130</label> &nbsp; &nbsp; &nbsp;
+<input type="checkbox" onChange={angleFourHandler}></input> <label>130 to 170</label> &nbsp; &nbsp; &nbsp;
+<input type="checkbox" onChange={angleDefaultHandler}></input> <label>Default: 30 to 160</label>
+
+
+
 {showMap && <div>
   
    {/*  Travel Distance: {info.travelDistance} km
